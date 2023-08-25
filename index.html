@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="todoApp" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Todo App using AngularJS" />
+    <meta name="author" content="Your Name" />
+    <meta name="keywords" content="todo, tasks, AngularJS" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="en" />
+
+    <title>Todo App</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="node_modules/angular/angular.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div ng-controller="TodoController">
+      <h2>Todo App</h2>
+      <div class="center">
+        <input
+          type="text"
+          ng-model="newTask"
+          id="newTask"
+          placeholder="Add a new task"
+          ng-keypress="handleKeyPress($event)"
+        />
+        <button ng-click="addTask()" ng-disabled="!newTask">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+
+      <div
+        class="card"
+        ng-class="{ 'completed-card': task.done, 'removing': task.removing }"
+        ng-repeat="task in tasks"
+      >
+        <span>
+          <input type="checkbox" ng-model="task.done" />
+          <p ng-if="task.done"><s>{{ task.text }}</s></p>
+          <p ng-if="!task.done">{{ task.text }}</p>
+        </span>
+        <p ng-if="task.done">Completed</p>
+        <p ng-if="!task.done">Yet to do</p>
+        <button ng-click="removeTask(task)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+
+      <div
+        ng-if="hasCompletedTasks()"
+        style="display: flex; justify-content: flex-end"
+      >
+        <button style="margin-right: 10%" ng-click="removeCompletedTasks()">
+          <i class="fas fa-trash-alt"></i> Remove Completed
+        </button>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

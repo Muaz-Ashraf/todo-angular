@@ -1,0 +1,138 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  color: #333333;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 40%;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background-color: #dadada;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #feffff;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: orange;
+  margin: 15px 10%;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out; /* Added transition */
+  cursor: pointer;
+  border: 2px solid black;
+  animation: slideFromRight 0.3s ease-out; /* Added animation */
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.card.removing {
+  animation: slideToLeft 0.3s ease-out; /* Added animation for removal */
+}
+
+@keyframes slideToLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.card:hover {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.completed-card {
+  background-color: #28a745;
+  color: white;
+}
+
+.task-details {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+.fa {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.fa-trash-alt {
+  color: red;
+}
+
+.fa-check {
+  color: #28a745;
+}
+
+.fa-plus {
+  color: #0cee40;
+}
+span {
+  display: flex;
+  gap: 5px;
+}
