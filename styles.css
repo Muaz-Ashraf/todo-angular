@@ -2,12 +2,20 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background: rgb(70, 70, 74);
+  background: linear-gradient(
+    90deg,
+    rgba(70, 70, 74, 1) 0%,
+    rgba(178, 178, 219, 1) 18%,
+    rgba(126, 224, 244, 1) 79%,
+    rgba(237, 237, 238, 1) 100%
+  );
 }
 
 .app-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -24,6 +32,7 @@ h2 {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  flex-direction: column;
 }
 
 input[type="text"] {
@@ -51,7 +60,8 @@ button:hover {
 }
 
 .card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 3fr auto auto; /* Adjust the column sizes as needed */
   justify-content: space-between;
   align-items: center;
   background-color: orange;
@@ -59,10 +69,11 @@ button:hover {
   border-radius: 5px;
   padding: 15px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease-in-out; /* Added transition */
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   border: 2px solid black;
-  animation: slideFromRight 0.3s ease-out; /* Added animation */
+  animation: slideFromRight 0.3s ease-out;
+  gap: 5px;
 }
 
 @keyframes slideFromRight {
@@ -96,16 +107,6 @@ button:hover {
   color: white;
 }
 
-.task-details {
-  flex-grow: 1;
-  margin-right: 10px;
-}
-
-.task-actions {
-  display: flex;
-  align-items: center;
-}
-
 a {
   color: #007bff;
   text-decoration: none;
@@ -131,8 +132,26 @@ a:hover {
 
 .fa-plus {
   color: #0cee40;
+  font-size: 1.5rem;
 }
-span {
+.text {
   display: flex;
   gap: 5px;
+}
+.add {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.status {
+  border: 1px solid blue;
+  border-radius: 0.5rem;
+  padding: 10px;
+  background-color: #0056b3;
+  color: white;
+}
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }

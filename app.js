@@ -15,6 +15,9 @@ app.controller("TodoController", function ($scope) {
       $scope.addTask();
     }
   };
+  $scope.toggleTaskDone = function (task) {
+    task.done = !task.done;
+  };
 
   $scope.removeTask = function (task) {
     var index = $scope.tasks.indexOf(task);
@@ -45,9 +48,20 @@ app.controller("TodoController", function ($scope) {
   $scope.hasCompletedTasks = function () {
     for (var i = 0; i < $scope.tasks.length; i++) {
       if ($scope.tasks[i].done) {
-        return true; // Return true as soon as a completed task is found
+        return true;
       }
     }
-    return false; // Return false if no completed tasks are found
+    return false;
   };
+});
+app.controller("myController", function ($scope) {
+  var employees = [
+    { name: "Ben", gender: "Male", city: "London", salary: 55000 },
+    { name: "Sara", gender: "Female", city: "Chennai", salary: 68000 },
+    { name: "Mark", gender: "Male", city: "Chicago", salary: 57000 },
+    { name: "Pam", gender: "Female", city: "London", salary: 53000 },
+    { name: "Todd", gender: "Male", city: "Chennai", salary: 60000 },
+  ];
+
+  $scope.employees = employees;
 });
