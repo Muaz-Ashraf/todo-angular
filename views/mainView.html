@@ -29,7 +29,9 @@
       </div>
     </div>
   </form>
-
+  <div ng-if="tasks.length>0" class="center gray">
+    <p>Click/Tap to mark as done</p>
+  </div>
   <div
     class="card"
     ng-class="{ 'completed-card': task.done, 'removing': task.removing }"
