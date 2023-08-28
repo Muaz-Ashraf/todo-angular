@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html ng-app="todoApp" lang="en">
+<html lang="en" ng-app="todoApp">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Todo App using AngularJS" />
-    <meta name="author" content="Your Name" />
+    <meta name="author" content="Muaz" />
     <meta name="keywords" content="todo, tasks, AngularJS" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="en" />
 
     <title>Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -20,93 +24,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <!-- Add this to the <head> section of your HTML -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.24/angular-material.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.24/angular-material.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
-    <div ng-controller="TodoController">
-      <h2>Todo App</h2>
-      <form name="todoForm" ng-submit="addTask()" novalidate>
-        <div class="center">
-          <span class="add">
-            <input
-              type="text"
-              ng-model="newTask"
-              id="newTask"
-              name="newTask"
-              placeholder="Add a new task"
-              ng-keypress="handleKeyPress($event)"
-              ng-pattern="/^(?! )([a-zA-Z0-9 ]+)$/"
-              ng-model-options="{ debounce: 300 }" />
-
-            <button ng-click="addTask()" ng-disabled="!todoForm.$valid">
-              <i class="fas fa-plus"></i></button
-          ></span>
-          <div
-            class="error"
-            ng-show="todoForm.newTask.$error.required && todoForm.newTask.$dirty"
-          >
-            Task name is required.
-          </div>
-          <div class="error" ng-show="todoForm.newTask.$error.pattern">
-            Task name must contain only alphanumeric characters
-          </div>
-        </div>
-      </form>
-
-      <div
-        class="card"
-        ng-class="{ 'completed-card': task.done, 'removing': task.removing }"
-        ng-repeat="task in tasks"
-        ng-click="toggleTaskDone(task)"
-      >
-        <span class="text">
-          <input type="checkbox" ng-model="task.done" />
-          <p ng-if="task.done"><s>{{ task.text }}</s></p>
-          <p ng-if="!task.done">{{ task.text }}</p>
-        </span>
-        <p class="status" ng-if="task.done">Completed</p>
-        <p class="status" ng-if="!task.done">Yet to do</p>
-        <button ng-click="removeTask(task)">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
-
-      <div
-        ng-if="hasCompletedTasks()"
-        style="display: flex; justify-content: flex-end"
-      >
-        <button style="margin-right: 10%" ng-click="removeCompletedTasks()">
-          <i class="fas fa-trash-alt"></i> Remove Completed
-        </button>
-      </div>
-    </div>
-    <!-- <div ng-controller="myController">
-      <input type="checkbox" ng-model="hideSalary" />Hide Salary <br /><br />
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>City</th>
-            <th ng-hide="hideSalary">Salary</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="employee in employees">
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.gender}}</td>
-            <td>{{ employee.city}}</td>
-            <td ng-hide="hideSalary">{{ employee.salary }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
+    <div ng-view></div>
   </body>
 </html>

@@ -1,13 +1,19 @@
 // app.js
-var app = angular.module("todoApp", []);
+var app = angular.module("todoApp", ["ngRoute"]);
 
-app.controller("TodoController", function ($scope) {
+app.controller("TodoController", function ($scope, $location) {
   $scope.tasks = [];
+  $scope.nextTaskId = 1; // Initialize the ID counter
 
   $scope.addTask = function () {
     if ($scope.newTask) {
-      $scope.tasks.push({ text: $scope.newTask, done: false });
+      $scope.tasks.push({
+        id: $scope.nextTaskId,
+        text: $scope.newTask,
+        done: false,
+      });
       $scope.newTask = "";
+      $scope.nextTaskId++; // Increment the ID counter
     }
   };
   $scope.handleKeyPress = function (event) {
@@ -53,15 +59,30 @@ app.controller("TodoController", function ($scope) {
     }
     return false;
   };
+  $scope.goToTodoDetails = function (task) {
+    $location.path("/todo/" + task.id); // Use the task's unique 'id' property
+  };
 });
-app.controller("myController", function ($scope) {
-  var employees = [
-    { name: "Ben", gender: "Male", city: "London", salary: 55000 },
-    { name: "Sara", gender: "Female", city: "Chennai", salary: 68000 },
-    { name: "Mark", gender: "Male", city: "Chicago", salary: 57000 },
-    { name: "Pam", gender: "Female", city: "London", salary: 53000 },
-    { name: "Todd", gender: "Male", city: "Chennai", salary: 60000 },
-  ];
 
-  $scope.employees = employees;
+app.config(function ($routeProvider) {
+  $routeProvider
+    .when("/", {
+      templateUrl: "views/mainView.html",
+      controller: "TodoController",
+    })
+    .when("/todo/:id", {
+      templateUrl: "views/todoDetailsView.html", // This should be the correct path to your details view template
+      controller: "TodoDetailsController",
+    })
+    .otherwise({
+      redirectTo: "/",
+    });
+});
+
+app.controller("TodoDetailsController", function ($scope, $routeParams) {
+  var taskId = parseInt($routeParams.id); // Convert the route parameter to an integer
+  // Find the task with the matching 'id'
+  $scope.taskDetails = $scope.tasks.find(function (task) {
+    return parseInt(task.id) === taskId;
+  });
 });

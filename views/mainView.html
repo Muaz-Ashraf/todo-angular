@@ -1,0 +1,64 @@
+<div ng-controller="TodoController">
+  <h2>Todo App</h2>
+  <form name="todoForm" ng-submit="addTask()" novalidate>
+    <div class="center">
+      <span class="add">
+        <input
+          type="text"
+          ng-model="newTask"
+          id="newTask"
+          name="newTask"
+          placeholder="Add a new task"
+          ng-keypress="handleKeyPress($event)"
+          ng-pattern="/^(?! )([a-zA-Z0-9 ]+)$/"
+          ng-model-options="{ debounce: 300 }"
+        />
+
+        <button ng-click="addTask()" ng-disabled="!todoForm.$valid">
+          <i class="fas fa-plus"></i>
+        </button>
+      </span>
+      <div
+        class="error"
+        ng-show="todoForm.newTask.$error.required && todoForm.newTask.$dirty"
+      >
+        Task name is required.
+      </div>
+      <div class="error" ng-show="todoForm.newTask.$error.pattern">
+        Task name must contain only alphanumeric characters.
+      </div>
+    </div>
+  </form>
+
+  <div
+    class="card"
+    ng-class="{ 'completed-card': task.done, 'removing': task.removing }"
+    ng-repeat="task in tasks"
+    ng-click="toggleTaskDone(task)"
+  >
+    <span class="text">
+      <input type="checkbox" ng-model="task.done" />
+      <p ng-if="task.done"><s>{{ task.text }}</s></p>
+      <p ng-if="!task.done">{{ task.text }}</p>
+    </span>
+    <p class="status" ng-if="task.done">Completed</p>
+    <p class="status" ng-if="!task.done">Yet to do</p>
+    <div>
+      <!-- <button ng-click="goToTodoDetails(task)">
+        <a ng-href="#/todo/{{ $index }}"></a
+        ><i class="fa-solid fa-square-info"></i>
+      </button> -->
+      <button ng-click="removeTask(task)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+  </div>
+  <div
+    ng-if="hasCompletedTasks()"
+    style="display: flex; justify-content: flex-end"
+  >
+    <button style="margin-right: 10%" ng-click="removeCompletedTasks()">
+      <i class="fas fa-trash-alt"></i> Remove Completed
+    </button>
+  </div>
+</div>
