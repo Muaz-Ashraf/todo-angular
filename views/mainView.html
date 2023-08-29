@@ -1,36 +1,38 @@
 <div ng-controller="TodoController">
-  <h2>Todo App</h2>
-  <form name="todoForm" ng-submit="addTask()" novalidate>
-    <div class="center">
-      <span class="add">
-        <input
-          type="text"
-          ng-model="newTask"
-          id="newTask"
-          name="newTask"
-          placeholder="Add a new task"
-          ng-keypress="handleKeyPress($event)"
-          ng-pattern="/^(?! )([a-zA-Z0-9 ]+)$/"
-          ng-model-options="{ debounce: 300 }"
-        />
+  <div class="title">
+    <h1>Todo App</h1>
+    <form name="todoForm" ng-submit="addTask()" novalidate>
+      <div class="center">
+        <span class="add">
+          <input
+            type="text"
+            ng-model="newTask"
+            id="newTask"
+            name="newTask"
+            placeholder="Add a new task"
+            ng-keypress="handleKeyPress($event)"
+            ng-pattern="/^(?! )([a-zA-Z0-9 ]+)$/"
+            ng-model-options="{ debounce: 300 }"
+          />
 
-        <button ng-click="addTask()" ng-disabled="!todoForm.$valid">
-          <i class="fas fa-plus"></i>
-        </button>
-      </span>
-      <div
-        class="error"
-        ng-show="todoForm.newTask.$error.required && todoForm.newTask.$dirty"
-      >
-        Task name is required.
+          <button ng-click="addTask()" ng-disabled="!todoForm.$valid">
+            <i class="fas fa-plus"></i>
+          </button>
+        </span>
+        <div
+          class="error"
+          ng-show="todoForm.newTask.$error.required && todoForm.newTask.$dirty"
+        >
+          Task name is required.
+        </div>
+        <div class="error" ng-show="todoForm.newTask.$error.pattern">
+          Task name must contain only alphanumeric characters.
+        </div>
       </div>
-      <div class="error" ng-show="todoForm.newTask.$error.pattern">
-        Task name must contain only alphanumeric characters.
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
   <div ng-if="tasks.length>0" class="center gray">
-    <p>Click/Tap to mark as done</p>
+    <p>Tap to mark completed</p>
   </div>
   <div
     class="card"
@@ -38,6 +40,8 @@
     ng-repeat="task in tasks"
     ng-click="toggleTaskDone(task)"
   >
+    <span style="font-weight: bold">Task {{task.id}}</span><span></span
+    ><span></span>
     <span class="text">
       <input type="checkbox" ng-model="task.done" />
       <p ng-if="task.done"><s>{{ task.text }}</s></p>
@@ -59,7 +63,7 @@
     ng-if="hasCompletedTasks()"
     style="display: flex; justify-content: flex-end"
   >
-    <button style="margin-right: 10%" ng-click="removeCompletedTasks()">
+    <button style="margin: 5%" ng-click="removeCompletedTasks()">
       <i class="fas fa-trash-alt"></i> Remove Completed
     </button>
   </div>
