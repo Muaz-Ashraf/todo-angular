@@ -40,6 +40,8 @@ h1 {
   padding: 20px;
   margin: 0;
   margin-bottom: 10px;
+  padding-bottom: 40px;
+  border-bottom: 5px solid rgb(120, 117, 117);
 }
 
 .center {
@@ -170,7 +172,7 @@ a:hover {
   color: white;
 }
 .error {
-  color: red;
+  color: wheat;
   font-size: 12px;
   margin-top: 5px;
 }
