@@ -186,6 +186,7 @@ a:hover {
   flex-direction: column;
   height: 100vh;
   gap: 5px;
+  margin: 0 10%;
 }
 .todo-details-card {
   border: 1px solid black;
@@ -197,12 +198,26 @@ a:hover {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+
+  flex-wrap: wrap;
+  width: 100%;
 }
 .todo-details-card div {
   display: flex;
   justify-content: space-between;
-  gap: 200px;
+  align-items: flex-start;
 }
 .todo-details-card p {
   font-weight: bold;
+}
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  display: none;
+  z-index: 1;
+  top: -25px; /* Adjust the top position as needed */
+  left: 0; /* Adjust the left position as needed */
 }

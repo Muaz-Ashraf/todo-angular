@@ -41,6 +41,7 @@ app.service("TodoService", function () {
 
 app.controller("TodoController", function ($scope, $location, TodoService) {
   $scope.tasks = TodoService.tasks;
+  $scope.showTooltip = false;
 
   $scope.addTask = function () {
     TodoService.addTask($scope.newTask);

@@ -50,9 +50,14 @@
     <p class="status" ng-if="task.done">Completed</p>
     <p class="status" ng-if="!task.done">Yet to do</p>
     <div>
-      <button ui-sref="todoDetails({ id: task.id })">
-        <i class="fa-solid fa-square-info">i</i>
-      </button>
+      <i
+        class="fa fa-info-circle"
+        ui-sref="todoDetails({ id: task.id })"
+        ng-mouseover="showTooltip = true"
+        ng-mouseleave="showTooltip = false"
+      ></i>
+      <span class="tooltip" ng-show="showTooltip">Task Details</span>
+
       <button ng-click="removeTask(task)">
         <i class="fas fa-trash-alt"></i>
       </button>
