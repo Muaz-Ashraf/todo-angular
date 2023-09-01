@@ -1,88 +1,87 @@
-// app.js
-var app = angular.module("todoApp", ["ngRoute"]);
+var app = angular.module("todoApp", ["ui.router"]);
 
-app.controller("TodoController", function ($scope, $location) {
-  $scope.tasks = [];
-  $scope.nextTaskId = 1; // Initialize the ID counter
+app.service("TodoService", function () {
+  this.tasks = [];
+  this.nextTaskId = 1;
 
-  $scope.addTask = function () {
-    if ($scope.newTask) {
-      $scope.tasks.push({
-        id: $scope.nextTaskId,
-        text: $scope.newTask,
+  this.addTask = function (text) {
+    if (text) {
+      this.tasks.push({
+        id: this.nextTaskId,
+        text: text,
         done: false,
       });
-      $scope.newTask = "";
-      $scope.nextTaskId++; // Increment the ID counter
+      this.nextTaskId++;
     }
   };
-  $scope.handleKeyPress = function (event) {
-    if (event.keyCode === 13) {
-      $scope.addTask();
+
+  this.removeTask = function (task) {
+    var index = this.tasks.indexOf(task);
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
     }
   };
-  $scope.toggleTaskDone = function (task) {
+
+  this.removeCompletedTasks = function () {
+    this.tasks = this.tasks.filter(function (task) {
+      return !task.done;
+    });
+  };
+
+  this.getTaskById = function (taskId) {
+    return this.tasks.find(function (task) {
+      return task.id === taskId;
+    });
+  };
+
+  this.toggleTaskDone = function (task) {
     task.done = !task.done;
   };
+});
 
-  $scope.removeTask = function (task) {
-    var index = $scope.tasks.indexOf(task);
-    if (index !== -1) {
-      // Set the 'removing' property to true for the task
-      $scope.tasks[index].removing = true;
-      setTimeout(function () {
-        $scope.$apply(function () {
-          $scope.tasks.splice(index, 1);
-        });
-      }, 200);
-    }
+app.controller("TodoController", function ($scope, $location, TodoService) {
+  $scope.tasks = TodoService.tasks;
+
+  $scope.addTask = function () {
+    TodoService.addTask($scope.newTask);
+    $scope.newTask = "";
   };
-  $scope.removeCompletedTasks = function () {
-    var tasksToRemove = [];
-    for (var i = 0; i < $scope.tasks.length; i++) {
-      if ($scope.tasks[i].done) {
-        tasksToRemove.push($scope.tasks[i]);
-      }
-    }
-    for (var i = 0; i < tasksToRemove.length; i++) {
-      var index = $scope.tasks.indexOf(tasksToRemove[i]);
-      if (index !== -1) {
-        $scope.tasks.splice(index, 1);
-      }
-    }
-  };
+
+  $scope.removeTask = TodoService.removeTask;
+
+  $scope.removeCompletedTasks = TodoService.removeCompletedTasks;
+
   $scope.hasCompletedTasks = function () {
-    for (var i = 0; i < $scope.tasks.length; i++) {
-      if ($scope.tasks[i].done) {
-        return true;
-      }
-    }
-    return false;
-  };
-  $scope.goToTodoDetails = function (task) {
-    $location.path("/todo/" + task.id); // Use the task's unique 'id' property
-  };
-});
-
-app.config(function ($routeProvider) {
-  $routeProvider
-    .when("/", {
-      templateUrl: "views/mainView.html",
-      controller: "TodoController",
-    })
-    .when("/todo/:id", {
-      templateUrl: "views/todoDetailsView.html", // This should be the correct path to your details view template
-      controller: "TodoDetailsController",
-    })
-    .otherwise({
-      redirectTo: "/",
+    return $scope.tasks.some(function (task) {
+      return task.done;
     });
+  };
+
+  $scope.goToTodoDetails = function (task) {
+    $location.path("/todo/" + task.id);
+  };
 });
 
-app.controller("TodoDetailsController", function ($scope, $routeParams) {
-  var taskId = parseInt($routeParams.id); // Convert the route parameter to an integer
-  // Find the task with the matching 'id'
-  $scope.taskDetails = $scope.tasks.find(function (task) {
-    return parseInt(task.id) === taskId;
+app.config(function ($stateProvider, $urlRouterProvider) {
+  $stateProvider.state("home", {
+    url: "/",
+    templateUrl: "views/mainView.html",
+    controller: "TodoController",
   });
+
+  $stateProvider.state("todoDetails", {
+    url: "/todo/:id",
+    templateUrl: "views/todoDetailsView.html",
+    controller: "TodoDetailsController",
+  });
+
+  $urlRouterProvider.otherwise("/");
 });
+
+app.controller(
+  "TodoDetailsController",
+  function ($scope, $stateParams, TodoService) {
+    var taskId = parseInt($stateParams.id);
+    $scope.taskDetails = TodoService.getTaskById(taskId);
+  }
+);

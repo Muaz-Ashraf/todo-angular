@@ -43,17 +43,16 @@
     <span style="font-weight: bold">Task {{task.id}}</span><span></span
     ><span></span>
     <span class="text">
-      <input type="checkbox" ng-model="task.done" />
+      <input type="checkbox" ng-model="task.done" class="bigger-checkbox" />
       <p ng-if="task.done"><s>{{ task.text }}</s></p>
       <p ng-if="!task.done">{{ task.text }}</p>
     </span>
     <p class="status" ng-if="task.done">Completed</p>
     <p class="status" ng-if="!task.done">Yet to do</p>
     <div>
-      <!-- <button ng-click="goToTodoDetails(task)">
-        <a ng-href="#/todo/{{ $index }}"></a
-        ><i class="fa-solid fa-square-info"></i>
-      </button> -->
+      <button ui-sref="todoDetails({ id: task.id })">
+        <i class="fa-solid fa-square-info">i</i>
+      </button>
       <button ng-click="removeTask(task)">
         <i class="fas fa-trash-alt"></i>
       </button>

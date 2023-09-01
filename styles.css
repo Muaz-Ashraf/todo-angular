@@ -93,7 +93,10 @@ button:hover {
   animation: slideFromRight 0.3s ease-out;
   gap: 5px;
 }
-
+.bigger-checkbox {
+  transform: scale(2.5); /* Adjust the scale factor to make it bigger */
+  margin-right: 10px; /* Optional: Add some spacing to the right of the checkbox */
+}
 @keyframes slideFromRight {
   from {
     transform: translateX(100%);
@@ -175,4 +178,31 @@ a:hover {
   color: wheat;
   font-size: 12px;
   margin-top: 5px;
+}
+.todo-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  gap: 5px;
+}
+.todo-details-card {
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 2rem;
+  background-color: #0056b3;
+  color: white;
+  font-size: large;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.todo-details-card div {
+  display: flex;
+  justify-content: space-between;
+  gap: 200px;
+}
+.todo-details-card p {
+  font-weight: bold;
 }

@@ -1,6 +1,18 @@
-<div ng-controller="TodoDetailsController">
-  <h3>Todo Details</h3>
-  <p>Task: {{ taskDetails.text }}</p>
-  <p>Status: {{ taskDetails.done ? 'Completed' : 'Yet to do' }}</p>
-  <a href="#/">Back to Main View</a>
+<div ng-controller="TodoDetailsController" class="todo-details-container">
+  <h1 style="color: blue">Todo Details</h1>
+  <div class="todo-details-card">
+    <div>
+      <p>Task Number:</p>
+      <p>{{ taskDetails.id}}</p>
+    </div>
+    <div>
+      <p>Task:</p>
+      <p>{{ taskDetails.text }}</p>
+    </div>
+    <div>
+      <p>Status:</p>
+      <p>{{ taskDetails.done ? 'Completed' : 'Yet to do' }}</p>
+    </div>
+  </div>
+  <a href="#/" style="margin-top: 20px">Back to Main View</a>
 </div>

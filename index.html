@@ -11,7 +11,12 @@
 
     <title>Todo App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.1.0/angular-ui-router.min.js"
+      integrity="sha512-BWLZUPMCCZGKazkRadkF9YXKQcVv1uAsyfvVx7T6pojT72iTrD6wegUBpaF8H3dCpLOeMDeXu+W58qgqZ0iwvA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="app.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,6 +34,6 @@
     />
   </head>
   <body>
-    <div ng-view></div>
+    <div ui-view></div>
   </body>
 </html>
